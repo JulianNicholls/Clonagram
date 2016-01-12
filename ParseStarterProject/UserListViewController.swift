@@ -7,18 +7,36 @@
 //
 
 import UIKit
+import Parse
 
 class UserListViewController: UITableViewController {
+
+    var userlist = [NSDictionary]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+        let query = PFUser.query()
 
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-    }
+        query?.findObjectsInBackgroundWithBlock({
+            (objects, error) -> Void in
+
+            if let users = objects {
+                self.userlist.removeAll(keepCapacity: true)
+
+                for object in users {
+                    if let user = object as? PFUser {
+                        if user.objectId != PFUser.currentUser()?.objectId {
+                            self.userlist.append(["name": user.username!, "id": user.objectId!])
+                        }
+                    }
+                }
+            }
+
+//            print(self.userlist)
+            self.tableView.reloadData()
+        })
+}
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -32,13 +50,13 @@ class UserListViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return userlist.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
 
-        cell.textLabel!.text = "Test \(indexPath.row + 1)"
+        cell.textLabel!.text = userlist[indexPath.row]["name"] as? String
         
         // Configure the cell...
 
