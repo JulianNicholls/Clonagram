@@ -55,8 +55,11 @@
                                     <constraint firstAttribute="width" constant="87" id="LTH-bg-qoy"/>
                                     <constraint firstAttribute="height" constant="30" id="W78-bn-Uif"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Sign up"/>
+                                <connections>
+                                    <action selector="mainPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="MXZ-Xf-stB"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Already registered?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mms-8s-4fC">
                                 <rect key="frame" x="45" y="273" width="149" height="21"/>
@@ -76,6 +79,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="Log in"/>
+                                <connections>
+                                    <action selector="secondPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CNl-Sa-fnJ"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tLs-rA-s1l">
                                 <rect key="frame" x="147" y="258" width="24" height="21"/>
@@ -123,6 +129,13 @@
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="mainButton" destination="TeO-Nm-UOY" id="zcQ-hy-Dvu"/>
+                        <outlet property="password" destination="cHF-Ga-iZX" id="3mc-wn-tJm"/>
+                        <outlet property="registered" destination="Mms-8s-4fC" id="4Nn-7H-Fgr"/>
+                        <outlet property="secondButton" destination="7gN-2V-S5E" id="7f7-X0-JDC"/>
+                        <outlet property="username" destination="eNR-52-5qj" id="GV5-hh-E1E"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
