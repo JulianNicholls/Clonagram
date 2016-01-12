@@ -25,9 +25,10 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewDidAppear(animated: Bool) {
+        if PFUser.currentUser()?.objectId != nil {
+            performSegueWithIdentifier("login", sender: self)
+        }
     }
 
     @IBAction func mainPressed(sender: AnyObject) {
@@ -51,7 +52,7 @@ class ViewController: UIViewController {
                     UIApplication.sharedApplication().endIgnoringInteractionEvents()
 
                     if error == nil {
-                        // Signup successful, for now
+                        self.performSegueWithIdentifier("login", sender: self)
                     }
                     else {
                         if let errorStr = error?.userInfo["error"] as? String {
@@ -70,7 +71,7 @@ class ViewController: UIViewController {
                     UIApplication.sharedApplication().endIgnoringInteractionEvents()
 
                     if error == nil {
-                        // logged in for now
+                        self.performSegueWithIdentifier("login", sender: self)
                     }
                     else {
                         if let errorStr = error?.userInfo["error"] as? String {
@@ -124,5 +125,16 @@ class ViewController: UIViewController {
 
     func isSetForSignup() -> Bool {
         return mainButton.currentTitle == "Sign up"
+    }
+
+
+
+
+
+
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
 }
