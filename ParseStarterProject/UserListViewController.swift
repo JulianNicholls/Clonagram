@@ -63,6 +63,19 @@ class UserListViewController: UITableViewController {
         return cell
     }
 
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let relation = PFObject(className: "follower")
+
+        relation["following"] = userlist[indexPath.row]["id"] as? String
+        relation["follower"]  = PFUser.currentUser()?.objectId
+
+        relation.saveInBackground()
+
+        let cell = self.tableView.cellForRowAtIndexPath(indexPath)
+
+        cell?.accessoryType = .Checkmark
+    }
+
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
