@@ -13,47 +13,19 @@ class UserListViewController: UITableViewController {
 
     var userlist = [Dictionary<String, String>]()
 
+    var refresher: UIRefreshControl!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let query = PFUser.query()
+        refresher = UIRefreshControl()
 
-        query?.findObjectsInBackgroundWithBlock({
-            (objects, error) -> Void in
+        refresher.attributedTitle = NSAttributedString(string: "Pull to refresh user list")
+        refresher.addTarget(self, action: "loadUsers", forControlEvents: .ValueChanged)
 
-            if let users = objects {
-                self.userlist.removeAll(keepCapacity: true)
-
-                for object in users {
-                    if let user = object as? PFUser {
-                        if user.objectId != PFUser.currentUser()?.objectId {
-                            let query = PFQuery(className: "follower")
-
-                            query.whereKey("follower", equalTo: (PFUser.currentUser()?.objectId)!)
-                            query.whereKey("following", equalTo: user.objectId!)
-
-                            query.findObjectsInBackgroundWithBlock({
-                                (objects, error) -> Void in
-
-                                var following = "0"
-
-                                if let objects = objects {
-                                    if objects.count > 0 {
-                                        following = "1"
-                                    }
-                                }
-
-                                self.userlist.append(["name": user.username!, "id": user.objectId!, "following": following])
-
-                                self.tableView.reloadData()
-                            })
-                        }
-                    }
-                }
-            }
-
-//            print(self.userlist)
-        })
+        self.tableView.addSubview(refresher)
+        
+        loadUsers()
     }
 
     // MARK: - Table view data source
@@ -73,6 +45,9 @@ class UserListViewController: UITableViewController {
 
         if userlist[indexPath.row]["following"] == "1" {
             cell.accessoryType = .Checkmark
+        }
+        else {
+            cell.accessoryType = .None
         }
         
         // Configure the cell...
@@ -118,7 +93,48 @@ class UserListViewController: UITableViewController {
         }
     }
 
+    func loadUsers() {
+        let query = PFUser.query()
 
+        query?.findObjectsInBackgroundWithBlock({
+            (objects, error) -> Void in
+
+            if let users = objects {
+                self.userlist.removeAll(keepCapacity: true)
+
+                for object in users {
+                    if let user = object as? PFUser {
+                        if user.objectId != PFUser.currentUser()?.objectId {
+                            let query = PFQuery(className: "follower")
+
+                            query.whereKey("follower", equalTo: (PFUser.currentUser()?.objectId)!)
+                            query.whereKey("following", equalTo: user.objectId!)
+
+                            query.findObjectsInBackgroundWithBlock({
+                                (objects, error) -> Void in
+
+                                var following = "0"
+
+                                if let objects = objects {
+                                    if objects.count > 0 {
+                                        following = "1"
+                                    }
+                                }
+
+                                self.userlist.append(["name": user.username!, "id": user.objectId!, "following": following])
+
+                                self.tableView.reloadData()
+                            })
+                        }
+                    }
+                }
+            }
+            
+            //            print(self.userlist)
+        })
+
+        self.refresher.endRefreshing()
+    }
 
 
 
