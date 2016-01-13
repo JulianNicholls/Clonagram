@@ -26,17 +26,6 @@ class ImageUploadControllerViewController: UIViewController, UINavigationControl
     }
 
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-
     @IBAction func selectPressed(sender: AnyObject) {
         let picker = UIImagePickerController()
 
@@ -50,24 +39,17 @@ class ImageUploadControllerViewController: UIViewController, UINavigationControl
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
         self.dismissViewControllerAnimated(true, completion: nil)
 
-        self.imageView.image = image
+        imageView.image = image
 
         uploadButton.enabled = true
     }
 
     @IBAction func uploadPressed(sender: AnyObject) {
-        let imageData = UIImagePNGRepresentation(self.imageView.image!)
-        let file = PFFile(name: "uploaded.png", data: imageData!)
-        let image = PFObject(className: "Image")
-
         var errMsg = "Try again later"
 
-        image.setValue(PFUser.currentUser()?.objectId, forKey: "userId")
-        image.setValue(file, forKey: "Image")
-        image.setValue(caption.text, forKey: "caption")
-
-        indicator = UIActivityIndicatorView(frame: CGRectMake(0, 0, 50, 50))
-        indicator.center = self.view.center
+        indicator = UIActivityIndicatorView(frame: self.view.frame)
+        indicator.backgroundColor = UIColor(white: 1.0, alpha: 0.5)
+        indicator.center = imageView.center
         indicator.hidesWhenStopped = true
         indicator.activityIndicatorViewStyle = .Gray
 
@@ -75,6 +57,14 @@ class ImageUploadControllerViewController: UIViewController, UINavigationControl
 
         indicator.startAnimating()
         UIApplication.sharedApplication().beginIgnoringInteractionEvents()
+
+        let imageData = UIImagePNGRepresentation(self.imageView.image!)
+        let imageFile = PFFile(name: "uploaded.png", data: imageData!)
+        let image     = PFObject(className: "Image")
+
+        image["userId"]  = PFUser.currentUser()?.objectId!
+        image["file"]    = imageFile
+        image["caption"] = caption.text
 
         image.saveInBackgroundWithBlock {
             (success, error) -> Void in
