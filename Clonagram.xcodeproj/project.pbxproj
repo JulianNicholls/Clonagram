@@ -17,6 +17,8 @@
 		81BA81791A49E0DB00E65899 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81BA81781A49E0DB00E65899 /* AudioToolbox.framework */; };
 		81BA817B1A49E0E500E65899 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81BA817A1A49E0E500E65899 /* SystemConfiguration.framework */; };
 		81BA817F1A49E0F000E65899 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 81BA817E1A49E0F000E65899 /* libstdc++.6.dylib */; };
+		B9085BD71C46662300C89251 /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = B9085BD61C46662300C89251 /* placeholder.png */; };
+		B9085BDA1C4667D100C89251 /* ImageUploadControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9085BD91C4667D100C89251 /* ImageUploadControllerViewController.swift */; };
 		B91DB7861C4520CB00524176 /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = B91DB7851C4520CB00524176 /* camera.png */; };
 		B9BB933B1C45644A00B10F79 /* UserListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BB933A1C45644A00B10F79 /* UserListViewController.swift */; };
 /* End PBXBuildFile section */
@@ -36,7 +38,9 @@
 		81BA817A1A49E0E500E65899 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		81BA817E1A49E0F000E65899 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		81BA81801A49E10C00E65899 /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
-		B91DB7851C4520CB00524176 /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
+		B9085BD61C46662300C89251 /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = placeholder.png; path = ParseStarterProject/placeholder.png; sourceTree = "<group>"; };
+		B9085BD91C4667D100C89251 /* ImageUploadControllerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUploadControllerViewController.swift; sourceTree = "<group>"; };
+		B91DB7851C4520CB00524176 /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = camera.png; path = ParseStarterProject/camera.png; sourceTree = "<group>"; };
 		B9BB933A1C45644A00B10F79 /* UserListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserListViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -69,6 +73,7 @@
 		81BA813C1A49DA1800E65899 = {
 			isa = PBXGroup;
 			children = (
+				B9085BD81C46662A00C89251 /* images */,
 				81BA81471A49DA1800E65899 /* Clonagram */,
 				814C3AC51B69877600E307BB /* Resources */,
 				81BA816A1A49DB5600E65899 /* Frameworks */,
@@ -90,8 +95,8 @@
 				81BA814A1A49DA1800E65899 /* AppDelegate.swift */,
 				81BA814C1A49DA1800E65899 /* ViewController.swift */,
 				814C3AC61B69877600E307BB /* Main.storyboard */,
+				B9085BD91C4667D100C89251 /* ImageUploadControllerViewController.swift */,
 				B9BB933A1C45644A00B10F79 /* UserListViewController.swift */,
-				B91DB7851C4520CB00524176 /* camera.png */,
 			);
 			name = Clonagram;
 			path = ParseStarterProject;
@@ -118,6 +123,15 @@
 				81BA81761A49E0D500E65899 /* libsqlite3.dylib */,
 			);
 			name = "System Frameworks";
+			sourceTree = "<group>";
+		};
+		B9085BD81C46662A00C89251 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				B91DB7851C4520CB00524176 /* camera.png */,
+				B9085BD61C46662300C89251 /* placeholder.png */,
+			);
+			name = images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -179,6 +193,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				814C3ACA1B69877600E307BB /* Main.storyboard in Resources */,
+				B9085BD71C46662300C89251 /* placeholder.png in Resources */,
 				B91DB7861C4520CB00524176 /* camera.png in Resources */,
 				814C3ACB1B69877600E307BB /* Images.xcassets in Resources */,
 			);
@@ -194,6 +209,7 @@
 				81BA814D1A49DA1800E65899 /* ViewController.swift in Sources */,
 				81BA814B1A49DA1800E65899 /* AppDelegate.swift in Sources */,
 				B9BB933B1C45644A00B10F79 /* UserListViewController.swift in Sources */,
+				B9085BDA1C4667D100C89251 /* ImageUploadControllerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
