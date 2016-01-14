@@ -7,89 +7,111 @@
 //
 
 import UIKit
+import Parse
 
 class FeedTableViewController: UITableViewController {
+
+    var images   = [NSDictionary]()
+    var userlist = Dictionary<String, String>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        loadUserNames()
+        loadFollowedUsers()
     }
 
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return images.count
     }
 
-    /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("feedCell", forIndexPath: indexPath) as! TableImageCell
 
-        // Configure the cell...
+        let cur = images[indexPath.row]
+        let file = cur["file"] as! PFFile
+
+        file.getDataInBackgroundWithBlock {
+            (data, error) -> Void in
+
+            if let image = UIImage(data: data!) {
+                cell.postedImage.image = image
+            }
+        }
+
+        cell.postedImage.image = UIImage(named: "camera.png")
+        cell.caption.text = cur["caption"] as? String
+        cell.username.text = cur["username"] as? String
 
         return cell
     }
-    */
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    func loadFollowedUsers() {
+        let followQuery = PFQuery(className: "follower")
+
+        followQuery.whereKey("follower", equalTo: (PFUser.currentUser()?.objectId!)!)
+
+        followQuery.findObjectsInBackgroundWithBlock {
+            (objects, error) -> Void in
+
+            if let objects = objects {
+                for object in objects {
+                    let followedUser = object["following"] as! String
+                    let imageQuery   = PFQuery(className: "Image")
+
+                    imageQuery.whereKey("userId", equalTo: followedUser)
+
+                    imageQuery.findObjectsInBackgroundWithBlock({
+                        (objects, error) -> Void in
+
+                        if let objects = objects {
+                            for object in objects {
+                                let userid   = object["userId"] as! String
+                                let username = self.userlist[userid]
+
+                                let image = [
+                                    "caption": object["caption"] as! String,
+                                    "username": username!,
+                                    "file": object["file"] as! PFFile
+                                ]
+
+                                self.images.append(image)
+                                self.tableView.reloadData()
+                            }
+                        }
+                    })
+                }
+            }
+        }
     }
-    */
 
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    func loadUserNames() {
+        let query = PFUser.query()
+
+        query?.findObjectsInBackgroundWithBlock({
+            (objects, error) -> Void in
+
+            if let users = objects {
+                for object in users {
+                    if let user = object as? PFUser {
+                        if user.objectId != PFUser.currentUser()?.objectId {
+                            self.userlist[user.objectId!] = user.username!
+                        }
+                    }
+                }
+            }
+        })
     }
-    */
 
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
 
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
