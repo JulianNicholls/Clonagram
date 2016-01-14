@@ -21,6 +21,8 @@
 		B9085BDA1C4667D100C89251 /* ImageUploadControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9085BD91C4667D100C89251 /* ImageUploadControllerViewController.swift */; };
 		B91DB7861C4520CB00524176 /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = B91DB7851C4520CB00524176 /* camera.png */; };
 		B9BB933B1C45644A00B10F79 /* UserListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BB933A1C45644A00B10F79 /* UserListViewController.swift */; };
+		B9CE363C1C46B225004A42A1 /* TableImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CE363B1C46B225004A42A1 /* TableImageCell.swift */; };
+		B9CE363E1C46B9F2004A42A1 /* FeedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CE363D1C46B9F2004A42A1 /* FeedTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +44,8 @@
 		B9085BD91C4667D100C89251 /* ImageUploadControllerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUploadControllerViewController.swift; sourceTree = "<group>"; };
 		B91DB7851C4520CB00524176 /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = camera.png; path = ParseStarterProject/camera.png; sourceTree = "<group>"; };
 		B9BB933A1C45644A00B10F79 /* UserListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserListViewController.swift; sourceTree = "<group>"; };
+		B9CE363B1C46B225004A42A1 /* TableImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableImageCell.swift; sourceTree = "<group>"; };
+		B9CE363D1C46B9F2004A42A1 /* FeedTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +99,8 @@
 				81BA814A1A49DA1800E65899 /* AppDelegate.swift */,
 				81BA814C1A49DA1800E65899 /* ViewController.swift */,
 				814C3AC61B69877600E307BB /* Main.storyboard */,
+				B9CE363D1C46B9F2004A42A1 /* FeedTableViewController.swift */,
+				B9CE363B1C46B225004A42A1 /* TableImageCell.swift */,
 				B9085BD91C4667D100C89251 /* ImageUploadControllerViewController.swift */,
 				B9BB933A1C45644A00B10F79 /* UserListViewController.swift */,
 			);
@@ -207,8 +213,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				81BA814D1A49DA1800E65899 /* ViewController.swift in Sources */,
+				B9CE363E1C46B9F2004A42A1 /* FeedTableViewController.swift in Sources */,
 				81BA814B1A49DA1800E65899 /* AppDelegate.swift in Sources */,
 				B9BB933B1C45644A00B10F79 /* UserListViewController.swift in Sources */,
+				B9CE363C1C46B225004A42A1 /* TableImageCell.swift in Sources */,
 				B9085BDA1C4667D100C89251 /* ImageUploadControllerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
